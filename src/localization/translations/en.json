@@ -1,0 +1,134 @@
+{
+  "language": "English",
+  "general": {
+    "tracks": "Tracks",
+    "artist": "Artist",
+    "save": "Save"
+  },
+  "screens": {
+    "home": {
+      "playlists": {
+        "headline": "Your Playlists"
+      },
+      "albums": {
+        "headline": "Latest Albums"
+      },
+      "mostPlayed":{
+        "headline": "Most Played"
+      },
+      "lastPlayed":{
+        "headline": "Recently Played"
+      },
+      "latestTracks":{
+        "headline": "Latest Tracks"
+      }
+    },
+    "search": {
+      "placeholder": "Begin Search",
+      "albums": "Albums",
+      "artists": "Artists",
+      "tracks": "Tracks",
+      "top": "Top Result",
+      "noResults": "No Results",
+      "lastSearches": "Last Searches"
+    },
+    "library": {
+      "headline": "Your Library",
+      "tracks": "Tracks",
+      "artists": "Artists",
+      "albums": "Albums",
+      "queue": "Queue",
+      "playlists": "Playlists"
+    },
+    "login": {
+      "host": "Host",
+      "email": "Email",
+      "password": "Password",
+      "loginBtn": "Login"
+    },
+    "artist": {
+      "topTracks": "Most played",
+      "discography": "Discography",
+      "features": "Features"
+    },
+    "artists": {
+      "navTitle": "Artists"
+    },
+    "tracks": {
+      "navTitle": "Your Tracks"
+    },
+    "playlists": {
+      "navTitle": "Playlists"
+    },
+    "addToPlaylist": {
+      "navTitle": "Choose Playlist"
+    },
+    "albums": {
+      "navTitle": "Albums"
+    },
+    "queue": {
+      "navTitle": "Current Queue"
+    },
+    "user": {
+      "logout": "Logout"
+    }
+  },
+  "bottomsheet": {
+    "gotoAlbum": "Go to Album",
+    "gotoArtist": "Go to Artist",
+    "toPlaylist": "Add to Playlist",
+    "albumToPlaylist" : "Add whole album to Playlist",
+    "artistToPlaylist" : "Add all tracks to Playlist",
+    "editPlaylist" : "Edit Playlist",
+    "removePlaylist" : "Remove Playlist",
+    "fromPlaylist": "Remove from Playlist",
+    "playlist": {
+      "label": "Name",
+      "placeholder": "Name of the playlist"
+    }
+  },
+  "snackbar": {
+    "removed": "Removed from Playlist",
+    "added": "Added to Playlist",
+    "addedPlaylist": "Added new Playlist"
+  },
+  "navigation": {
+    "home": "Home",
+    "search": "Search",
+    "library": "Library",
+    "user": "Profile"
+  },
+  "alert": {
+    "permissions": {
+      "drawOverApps": {
+        "title": "Android Auto Permission",
+        "body": "If you'd like to use Android Auto, please grant Micanto the 'Draw over other Apps' permission."
+      }
+    },
+    "playlist": {
+      "remove": {
+        "title": "Remove Playlist",
+        "msg": "Do you really want to delete this playlist?"
+      }
+    },
+    "ok": "OK",
+    "yes": "Yes",
+    "cancel": "Cancel"
+  },
+  "errors": {
+    "host": "Wrong host url or network problems",
+    "email": "Wrong email or password",
+    "toomany": "Too many wrong attempts"
+  },
+  "auto": {
+    "shuffle": "Shuffle All",
+    "tabs": {
+      "latest": {
+        "title": "Last played"
+      },
+      "library": {
+        "title": "Library"
+      }
+    }
+  }
+}

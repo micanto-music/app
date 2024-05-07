@@ -1,0 +1,134 @@
+{
+  "language": "Deutsch",
+  "general": {
+    "tracks": "Lieder",
+    "artist": "Künstler/in",
+    "save": "Speichern"
+  },
+  "screens": {
+    "home": {
+      "playlists": {
+        "headline": "Deine Playlists"
+      },
+      "albums": {
+        "headline": "Neueste Alben"
+      },
+      "mostPlayed":{
+        "headline": "Am meisten gehört"
+      },
+      "lastPlayed":{
+        "headline": "Zuletzt gehört"
+      },
+      "latestTracks":{
+        "headline": "Neueste Lieder"
+      }
+    },
+    "search": {
+      "placeholder": "Suchwort eingeben",
+      "albums": "Alben",
+      "artists": "Künstler/in",
+      "tracks": "Lieder",
+      "top": "Top-Ergebnis",
+      "noResults": "Kein Ergebnisse",
+      "lastSearches": "Letzte Suchen"
+    },
+    "library": {
+      "headline": "Deine Sammlung",
+      "tracks": "Lieder",
+      "artists": "Künstler/innen",
+      "albums": "Alben",
+      "queue": "Wiedergabeliste",
+      "playlists": "Playlists"
+    },
+    "login": {
+      "host": "Host",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "loginBtn": "Anmelden"
+    },
+    "artist": {
+      "topTracks": "Am meisten gehört",
+      "discography": "Discographie",
+      "features": "Features"
+    },
+    "artists": {
+      "navTitle": "Künstler/innen"
+    },
+    "tracks": {
+      "navTitle": "Deine Lieder"
+    },
+    "playlists": {
+      "navTitle": "Playlists"
+    },
+    "addToPlaylist": {
+      "navTitle": "Playlist wählen"
+    },
+    "albums": {
+      "navTitle": "Alben"
+    },
+    "queue": {
+      "navTitle": "Wiedergabeliste"
+    },
+    "user": {
+      "logout": "Abmelden"
+    }
+  },
+  "bottomsheet": {
+    "gotoAlbum": "Zum Album",
+    "gotoArtist": "Zum/r Künstler/in",
+    "toPlaylist": "Zu einer Playlist hinzufügen",
+    "albumToPlaylist" : "Ganzes Album zur Playlist hinzufügen",
+    "artistToPlaylist" : "Alle Lieder zur Playlist hinzufügen",
+    "editPlaylist" : "Playlist bearbeiten",
+    "removePlaylist" : "Playlist löschen",
+    "fromPlaylist": "Von Playlist löschen",
+    "playlist": {
+      "label": "Name",
+      "placeholder": "Name der Playlist"
+    }
+  },
+  "snackbar": {
+    "removed": "Von Playlist entfernt",
+    "added": "Zur Playlist hinzugefügt",
+    "addedPlaylist": "Neue Playlist hinzugefügt"
+  },
+  "navigation": {
+    "home": "Start",
+    "search": "Suche",
+    "library": "Sammlung",
+    "user": "Profil"
+  },
+  "alert": {
+    "permissions": {
+      "drawOverApps": {
+        "title": "Android Auto Zugriff",
+        "body": "Wenn du Android Auto benutzen möchtest, gebe Micanto bitte die Berechtigung über sich andere Apps zu legen"
+      }
+    },
+    "playlist": {
+      "remove": {
+        "title": "Playlist löschen",
+        "msg": "Willst du die Playlist wirklich endgültig löschen?"
+      }
+    },
+    "ok": "OK",
+    "yes": "Ja",
+    "cancel": "Abbrechen"
+  },
+  "errors": {
+    "host": "Falsche Url oder Netzwerk-Probleme",
+    "email": "Fehler in der E-Mail oder Passwort",
+    "toomany": "Zu viele Fehlversuche"
+  },
+  "auto": {
+    "shuffle": "Zufällige Wiedergabe",
+    "tabs": {
+      "latest": {
+        "title": "Zuletzt gehört"
+      },
+      "library": {
+        "title": "Sammlung"
+      }
+    }
+  }
+}
