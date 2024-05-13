@@ -63,13 +63,13 @@ export default function() {
         <SafeAreaView style={{ flex: 1 }}>
             <FlatList
                 data={tracks}
-                renderItem={({item}) =>
+                renderItem={({item, index}) =>
                     <ListItem
                         title={item.title}
                         subtitle={arrToComma(item.artists,'name')}
                         cover={item.cover}
                         item={item}
-                        clickHandler={(item, index) => playHandler(item, index)}
+                        clickHandler={(item) => playHandler(item, index)}
                         contextMenuHandler={handleTrackMenu}
                         context={context}
                     />

@@ -110,13 +110,13 @@ export default function({ route, navigation }) {
                     image={playlist?.cover}
                     context={context}
                 />}
-                renderItem={({item}) => <ListItem
+                renderItem={({item,index}) => <ListItem
                     item={item}
                     title={item.title}
                     cover={item.cover}
                     subtitle={arrToComma(item.artists,'name')}
                     bottomSheetModalRef={bottomSheetModalRef}
-                    clickHandler={(item, index) => playHandler(item, index)}
+                    clickHandler={(item) => playHandler(item, index)}
                     contextMenuHandler={handleTrackMenu}
                 />}
                 onEndReached={fetchNextPage}

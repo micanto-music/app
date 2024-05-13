@@ -1206,7 +1206,7 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
-"@gorhom/bottom-sheet@^5":
+"@gorhom/bottom-sheet@5.0.0-alpha.9":
   version "5.0.0-alpha.9"
   resolved "https://registry.yarnpkg.com/@gorhom/bottom-sheet/-/bottom-sheet-5.0.0-alpha.9.tgz#aa05f1289a927f7808e3991d11660495bd716d50"
   integrity sha512-s44MvF5QO40nmiK8lycrGAZM8M8t+nbiH98kXTiqwxU8BQNAm3XiOTlvg56Z+gnpiRv+wvkbmsO9tDkVzLfDGQ==
