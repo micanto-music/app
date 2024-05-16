@@ -19,19 +19,6 @@ export const secondsToHHMMSS = (seconds) => {
     return `${hrs}${mins}${secs}`
 }
 
-// export const toApiObject = (track) => {
-//     return {
-//         id: track.id,
-//         url: track.url, // Load media from the network
-//         title: track.title,
-//         artists: arrToComma(track.artists, 'name'),
-//         album: track.album,
-//         genre: track.gerne,
-//         date: '2014-05-20T07:00:00+00:00', // RFC 3339
-//         artwork: track.cover, // Load artwork from the network
-//         duration: track.duration,
-//     }
-// }
 export const toTrackPlayerObject = ( tracks, token ) => {
     return tracks.map((track) => {
         {
@@ -40,7 +27,6 @@ export const toTrackPlayerObject = ( tracks, token ) => {
                 url: track.url, // Load media from the network
                 title: track.title,
                 artist: arrToComma(track.artists, 'name'),
-                subtitle: arrToComma(track.artists, 'name'),
                 artistId: track.artists[0].id,
                 albumId: track.album_id,
                 album: track.album,
