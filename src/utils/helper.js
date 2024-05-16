@@ -38,8 +38,9 @@ export const toTrackPlayerObject = ( tracks, token ) => {
             return {
                 id: track.id,
                 url: track.url, // Load media from the network
-                    title: track.title,
+                title: track.title,
                 artist: arrToComma(track.artists, 'name'),
+                subtitle: arrToComma(track.artists, 'name'),
                 artistId: track.artists[0].id,
                 albumId: track.album_id,
                 album: track.album,

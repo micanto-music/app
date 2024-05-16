@@ -169,7 +169,6 @@ export const addRecentlyPlayed = (latest) => {
 }
 
 async function handlePlaylist(mediaId) {
-    console.log(mediaId);
     if (browseTree[mediaId] === undefined) {
         const playlistId = mediaId.substring(9);
         let playlist = await MicantoApi.getPlaylist(playlistId);
