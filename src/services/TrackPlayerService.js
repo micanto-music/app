@@ -103,11 +103,7 @@ export default async function () {
                             await MicantoPlayer.play();
                         }
                     }
-
-
                 })
-
-                console.log(query);
             })()
 
         });

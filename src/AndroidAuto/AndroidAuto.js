@@ -99,6 +99,9 @@ export const handleAABrowseMediaId = async (mediaId) => {
         case 'Artists':
             await handleArtists(mediaId);
             break;
+        case 'LatestTab':
+            currentContext = {'type': 'lastPlayed'}
+            break;
     }
 
     if (mediaId.startsWith('playlist-')) {
@@ -210,6 +213,9 @@ export const handlePlayRemoteMediaId = async (mediaId) => {
     if(mediaId.startsWith('track-')) {
         const trackId = mediaId.substring(6);
         await MicantoPlayer.reset();
+
+
+
         const {data: queue} = await MicantoApi.getQueue(currentContext);
         const token = await getToken();
         let currentQueue = queue;
@@ -221,6 +227,8 @@ export const handlePlayRemoteMediaId = async (mediaId) => {
             if(trackId) {
                 currentTrackIndex = currentQueue.findIndex(music => music.id == trackId);
                 reorderQueue = reorderArr(currentTrackIndex,currentQueue);
+                console.log(currentTrackIndex);
+
             }
         }
         await MicantoPlayer.setQueue(toTrackPlayerObject(reorderQueue, token));
