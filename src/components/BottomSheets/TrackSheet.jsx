@@ -15,6 +15,7 @@ import {useTranslation} from "react-i18next";
 import {MicantoApi} from "../../api/MicantoApi";
 import Snackbar from "../SnackbarManager";
 import BaseSheet from "./BaseSheet";
+import {downloadTrack} from "../../services/Downloader";
 
 export default function TrackSheet( props ) {
 
@@ -36,6 +37,9 @@ export default function TrackSheet( props ) {
                 navigation.navigate('Artist', {
                     artistId: artistId
                 });
+                break;
+            case "download":
+                downloadTrack(data);
                 break;
             case "addToPlaylist":
                 navigation.navigate('AddToPlaylist', {
@@ -68,6 +72,10 @@ export default function TrackSheet( props ) {
                         <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('artist', props.data)}>
                             <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="account-group-outline"/></Text>
                             <Text>{t('bottomsheet.gotoArtist')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('download', props.data)}>
+                            <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="download-circle-outline"/></Text>
+                            <Text>{t('bottomsheet.download')}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('addToPlaylist', props.data)}>
                             <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="music-note-plus"/></Text>

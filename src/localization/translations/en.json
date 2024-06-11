@@ -38,7 +38,8 @@
       "artists": "Artists",
       "albums": "Albums",
       "queue": "Queue",
-      "playlists": "Playlists"
+      "playlists": "Playlists",
+      "downloads": "Downloads"
     },
     "login": {
       "host": "Host",
@@ -71,6 +72,9 @@
     },
     "user": {
       "logout": "Logout"
+    },
+    "downloads": {
+      "navTitle": "Downloads"
     }
   },
   "bottomsheet": {
@@ -85,7 +89,8 @@
     "playlist": {
       "label": "Name",
       "placeholder": "Name of the playlist"
-    }
+    },
+    "download": "Download track"
   },
   "snackbar": {
     "removed": "Removed from Playlist",

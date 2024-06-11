@@ -7,7 +7,10 @@ import {Common} from "../styles/styles";
 
 export default function ListItem({title, type, clickHandler, item, subtitle = '', cover = null, contextMenuHandler = null}) {
     return (
-        <TouchableOpacity activeOpacity={0.7} onPress={() => clickHandler(item) }>
+        <TouchableOpacity
+            activeOpacity={0.7} onPress={() => clickHandler(item) }
+            onLongPress={() => {if(contextMenuHandler) contextMenuHandler(item)}}
+        >
             <View
                 style={{
                     flexDirection: "row",

@@ -13,18 +13,24 @@ import {theme} from "./src/styles/theme";
 import {Common} from "./src/styles/styles";
 import SplashScreen from 'react-native-splash-screen'
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import {getDownloaded} from "./src/services/StorageService";
+import {useDownloaded} from "./src/stores/downloaded";
+import {useTrackPlayer} from "./src/stores/trackPlayer";
+import {useShallow} from "zustand/react/shallow";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
 
     const [user,setUser] = useState();
     const [status,setStatus] = useState("loading");
-
+    const [downloaded, addDownloaded] = useDownloaded(useShallow(state => [state.downloaded, state.setDownloaded]));
     useEffect(() => {
         async function runEffect() {
             try {
                 const user = await loadUser();
                 setUser(user);
+                const localDownloaded = await getDownloaded();
+                setDownloaded(localDownloaded);
                 SplashScreen.hide();
             } catch(e) {
                 SplashScreen.hide();

@@ -12,4 +12,5 @@ export const links = [
     {name: 'artists', to: 'Artists', icon: <MaterialCommunityIcons size={28} name="account-group-outline"/>},
     {name: 'albums', to: 'Albums', icon: <FontAwesome5Icons size={28} name="compact-disc"/>},
     {name: 'queue', to: 'Queue', icon: <MaterialCommunityIcons size={28} name="format-list-bulleted-square"/>},
+    {name: 'downloads', to: 'Downloads', icon: <MaterialCommunityIcons size={28} name="progress-check"/>},
 ];

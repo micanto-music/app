@@ -31,6 +31,7 @@ import SnackbarContainer from "./SnackbarContainer";
 import {useContext} from "react";
 import AuthContext from "../contexts/AuthContext";
 import defaultUserImage from '../assets/img/user.png'
+import DownloadsScreen from "../screens/DownloadsScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -80,6 +81,7 @@ const LibraryStack = () => {
         <Stack.Screen name="Albums" component={AlbumsScreen} options={{title: t('screens.albums.navTitle')}}/>
         <Stack.Screen name="Album" component={AlbumScreen} options={{headerShown: false}} />
         <Stack.Screen name="Queue" component={QueueScreen} options={{title: t('screens.queue.navTitle')}}/>
+        <Stack.Screen name="Downloads" component={DownloadsScreen} options={{title: t('screens.downloads.navTitle')}}/>
     </Stack.Navigator>
     )
 }

@@ -1,5 +1,5 @@
 import {useProgress, useIsPlaying, useActiveTrack} from "react-native-track-player";
-import React, { useRef} from "react";
+import React, {useRef} from "react";
 import {SafeAreaView, View, Image, StyleSheet, TouchableOpacity} from "react-native";
 import {Text} from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -14,15 +14,21 @@ import TrackSheet from "../components/BottomSheets/TrackSheet";
 import { RepeatMode } from 'react-native-track-player';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {MicantoPlayer, shuffleQueue} from "../services/MicantoPlayer";
+import {downloadTrack} from "../services/Downloader";
+import {useDownloaded} from "../stores/downloaded";
 
 const TrackPlayerScreen = ({ navigation }) => {
     const { position } = useProgress();
     const { playing, bufferingDuringPlay } = useIsPlaying();
     const track = useActiveTrack();
+    const isDownloaded = useDownloaded((state) => state.isDownloaded);
+    const downloaded = isDownloaded(track?.id);
     const isShuffle = useTrackPlayer((state) => state.shuffle);
     const repeatMode = useTrackPlayer((state) => state.repeatMode);
     const setRepeatMode = useTrackPlayer((state) => state.setRepeatMode);
     const bottomSheetModalRef = useRef(null);
+
+    console.log(downloaded);
 
     const onShuffleHandler = async () => {
         await shuffleQueue();
@@ -70,6 +76,10 @@ const TrackPlayerScreen = ({ navigation }) => {
 
     const handleTrackMenu = () => {
         bottomSheetModalRef.current.present(track);
+    }
+
+    const onDownloadTrack = () => {
+        let test= downloadTrack(track);
     }
 
     return (
@@ -203,6 +213,13 @@ const TrackPlayerScreen = ({ navigation }) => {
                           />
                       </TouchableOpacity>
                   </View>
+                  {downloaded ?
+                        <MaterialCommunityIcons name="progress-check" color={COLORS.active} size={28} />
+                      :
+                      <TouchableOpacity onPress={onDownloadTrack} activeOpacity={0.7}>
+                          <MaterialCommunityIcons name="download-circle-outline" color="white" size={28} />
+                      </TouchableOpacity>
+                  }
 
               </View>
           }

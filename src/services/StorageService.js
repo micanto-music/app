@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let token = null;
 let host = null;
+let downloaded = null;
 
 export async function setToken(newToken) {
     token = newToken;
@@ -24,7 +25,6 @@ export async function getToken() {
 
 export async function setHost(newHost) {
     host = newHost;
-
     if (host !== null) {
         await AsyncStorage.setItem("host", host);
     } else {
@@ -39,4 +39,22 @@ export async function getHost() {
 
     host = await AsyncStorage.getItem("host");
     return host;
+}
+
+export async function setDownloaded(newDownloaded) {
+    downloaded = newDownloaded;
+    if (downloaded !== null) {
+        await AsyncStorage.setItem("downloaded", JSON.stringify(downloaded));
+    } else {
+        await AsyncStorage.removeItem("downloaded");
+    }
+}
+
+export async function getDownloaded() {
+    if(downloaded !== null) {
+        return downloaded;
+    }
+
+    downloaded = await AsyncStorage.getItem("downloaded");
+    return JSON.parse(downloaded);
 }
