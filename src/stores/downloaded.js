@@ -18,6 +18,16 @@ export const useDownloaded = create((set, get) => ({
     setDownloaded: (downloaded) => {
         set(() => ({ downloaded: downloaded}));
     },
+    removeDownloaded: (idsToRemove) => {
+        let downloaded = get().downloaded;
+        idsToRemove.map((id) => {
+            let indexToRemove = downloaded.findIndex(music => id === music.id);
+            downloaded.splice(indexToRemove, 1);
+        });
+        console.log(downloaded);
+        set(() => ({ downloaded: downloaded}));
+
+    },
     isDownloaded: (id) => {
         let downloaded = get().downloaded;
         let alreadyDownloadedIndex = downloaded.findIndex(track => track.id === id);

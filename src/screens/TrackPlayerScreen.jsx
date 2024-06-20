@@ -28,8 +28,6 @@ const TrackPlayerScreen = ({ navigation }) => {
     const setRepeatMode = useTrackPlayer((state) => state.setRepeatMode);
     const bottomSheetModalRef = useRef(null);
 
-    console.log(downloaded);
-
     const onShuffleHandler = async () => {
         await shuffleQueue();
     }

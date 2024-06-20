@@ -3,13 +3,14 @@ import {Text} from "react-native-paper";
 import {trimText} from "../utils/helper";
 import EntypoIcons from "react-native-vector-icons/Entypo";
 import React from "react";
-import {Common} from "../styles/styles";
+import {COLORS, Common} from "../styles/styles";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function ListItem({title, type, clickHandler, item, subtitle = '', cover = null, contextMenuHandler = null}) {
+export default function ListItem({title, type, clickHandler, item, subtitle = '', cover = null, contextMenuHandler = null, longPressHandler = null}) {
     return (
         <TouchableOpacity
             activeOpacity={0.7} onPress={() => clickHandler(item) }
-            onLongPress={() => {if(contextMenuHandler) contextMenuHandler(item)}}
+            onLongPress={() => {if(longPressHandler) longPressHandler(item)}}
         >
             <View
                 style={{
@@ -23,10 +24,23 @@ export default function ListItem({title, type, clickHandler, item, subtitle = ''
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <Image
-                        style={{ height: 50, width: 50, borderRadius: 10, marginRight: 10 }}
-                        source={cover ? { uri: cover } : require('../assets/img/logo.png')}
-                    />
+                    <View style={{position: "relative"}}>
+                        <Image
+                            style={{ height: 50, width: 50, borderRadius: 10, marginRight: 10 }}
+                            source={cover ? { uri: cover } : require('../assets/img/logo.png')}
+                        />
+                        {item.selected === true && <View style={{
+                            position: "absolute",
+                            right: 0,
+                            bottom: -10
+                        }}>
+                            <Ionicons
+                                name="checkmark-circle"
+                                color={COLORS.primaryColor}
+                                size={20}
+                            />
+                        </View>}
+                    </View>
                     <View>
                         <Text
                             style={{fontWeight: 'bold'}}

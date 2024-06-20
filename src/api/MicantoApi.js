@@ -21,6 +21,20 @@ export const MicantoApi = {
         return response.data;
     },
 
+    findByIds: async function (ids) {
+        const response = await axios.request({
+            url: `/tracks/findByIds`,
+            method: "POST",
+            data: {ids:ids}
+            // retrieving the signal value by using the property name
+            //signal: cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
+        })
+
+        return response.data;
+    },
+
+
+
     searchFor: async function (word) {
         const response = await axios.request({
             url: `/search?term=${word}`,

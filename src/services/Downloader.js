@@ -29,6 +29,13 @@ export const getDownloadedFilePath = async (id) => {
     return `${folderPath}/${id}${ext}`
 }
 
+export const deleteFiles = async (files) => {
+    files.map((file) => {
+        // console.log(file);
+        RNFS.unlink(file.path);
+    });
+}
+
 export const downloadTrack = async (
     track,
     restart = false
