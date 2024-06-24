@@ -90,7 +90,10 @@
       "label": "Name",
       "placeholder": "Name der Playlist"
     },
-    "download": "Lied herunterladen"
+    "download": "Lied herunterladen",
+    "downloadPlaylist": "Alle Lieder herunterladen",
+    "downloadAlbum": "Album herunterladen",
+    "downloadArtist": "Alle Lieder herunterladen"
   },
   "snackbar": {
     "removed": "Von Playlist entfernt",

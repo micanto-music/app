@@ -68,12 +68,13 @@ export default function() {
                 selected.push(item.id);
             }
             setSelected([...selected]);
-        } else {
-            play(item, {
-                type: 'queue',
-                id: null
-            });
         }
+        // else {
+        //     play(item, {
+        //         type: 'queue',
+        //         id: null
+        //     });
+        // }
     }
 
     const resetSelectMode = () => {

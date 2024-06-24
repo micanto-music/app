@@ -6,7 +6,7 @@ import {TouchableOpacity} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {useTranslation} from "react-i18next";
 import {useNavigation, useRoute} from "@react-navigation/native";
-
+import {downloadAlbum} from "../../services/Downloader";
 export default function AlbumSheet( props ) {
     const [t] = useTranslation();
     const navigation = useNavigation();
@@ -25,6 +25,9 @@ export default function AlbumSheet( props ) {
                     data: data
                 });
                 break;
+            case "download":
+                downloadAlbum(data.id);
+
             default:
                 break;
         }
@@ -45,6 +48,10 @@ export default function AlbumSheet( props ) {
                         <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('addToPlaylist', props.data)}>
                             <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="music-note-plus"/></Text>
                             <Text>{t('bottomsheet.albumToPlaylist')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('download', props.data)}>
+                            <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="download-circle-outline"/></Text>
+                            <Text>{t('bottomsheet.downloadAlbum')}</Text>
                         </TouchableOpacity>
                     </BottomSheetView>
                 )}}

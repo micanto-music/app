@@ -90,7 +90,10 @@
       "label": "Name",
       "placeholder": "Name of the playlist"
     },
-    "download": "Download track"
+    "download": "Download track",
+    "downloadPlaylist": "Download all tracks",
+    "downloadAlbum": "Download album",
+    "downloadArtist": "Download all tracks"
   },
   "snackbar": {
     "removed": "Removed from Playlist",

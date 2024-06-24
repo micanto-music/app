@@ -10,7 +10,13 @@ export default function ListItem({title, type, clickHandler, item, subtitle = ''
     return (
         <TouchableOpacity
             activeOpacity={0.7} onPress={() => clickHandler(item) }
-            onLongPress={() => {if(longPressHandler) longPressHandler(item)}}
+            onLongPress={() => {
+                if(longPressHandler) {
+                    longPressHandler(item)
+                } else if(contextMenuHandler) {
+                    contextMenuHandler(item)
+                }
+            }}
         >
             <View
                 style={{

@@ -5,6 +5,7 @@ import {getHost, getToken} from "./StorageService";
 import Bottleneck from "bottleneck";
 import {bytesToHumanReadableString} from "../utils/helper";
 import {useDownloaded} from "../stores/downloaded";
+import {MicantoApi} from "../api/MicantoApi";
 
 const addDownloaded = useDownloaded.getState().addDownloaded;
 
@@ -31,8 +32,32 @@ export const getDownloadedFilePath = async (id) => {
 
 export const deleteFiles = async (files) => {
     files.map((file) => {
-        // console.log(file);
         RNFS.unlink(file.path);
+    });
+}
+
+export const downloadPlaylist = async (id) => {
+    MicantoApi.downloadPlaylist(id).then((res) => {
+        res.map((item) => {
+            downloadTrack({id: item})
+        });
+    });
+}
+
+export const downloadAlbum = async (id) => {
+    console.log(id);
+    MicantoApi.downloadAlbum(id).then((res) => {
+        res.map((item) => {
+            downloadTrack({id: item})
+        });
+    });
+}
+
+export const downloadArtist = async (id) => {
+    MicantoApi.downloadArtist(id).then((res) => {
+        res.map((item) => {
+            downloadTrack({id: item})
+        });
     });
 }
 

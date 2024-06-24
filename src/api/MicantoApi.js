@@ -191,4 +191,28 @@ export const MicantoApi = {
 
         return response.data;
     },
+
+    downloadPlaylist: async function (id) {
+        const response = await axios.request({
+            url: `/download/playlist/${id}`,
+            method: "GET"
+        });
+        return response.data;
+    },
+
+    downloadAlbum: async function (id) {
+        const response = await axios.request({
+            url: `/download/album/${id}`,
+            method: "GET"
+        });
+        return response.data;
+    },
+
+    downloadArtist: async function (id) {
+        const response = await axios.request({
+            url: `/download/artist/${id}`,
+            method: "GET"
+        });
+        return response.data;
+    },
 }

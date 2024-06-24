@@ -11,6 +11,7 @@ import {MicantoApi} from "../../api/MicantoApi";
 import {useTrackPlayer} from "../../stores/trackPlayer";
 import {useShallow} from "zustand/react/shallow";
 import {useRef} from "react";
+import {downloadPlaylist} from "../../services/Downloader";
 
 export default function PlaylistSheet( props ) {
     const [t] = useTranslation();
@@ -43,6 +44,9 @@ export default function PlaylistSheet( props ) {
                 ])
                 props.bottomSheetModalRef.current.close();
                 break;
+            case "downloadPlaylist":
+                downloadPlaylist(data.id);
+                break;
             default:
                 break;
         }
@@ -62,6 +66,10 @@ export default function PlaylistSheet( props ) {
                         <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('removePlaylist', props.data)}>
                             <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="playlist-remove"/></Text>
                             <Text>{t('bottomsheet.removePlaylist')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('downloadPlaylist', props.data)}>
+                            <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="download-circle-outline"/></Text>
+                            <Text>{t('bottomsheet.downloadPlaylist')}</Text>
                         </TouchableOpacity>
                     </BottomSheetView>
                 )}}

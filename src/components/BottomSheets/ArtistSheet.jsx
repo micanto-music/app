@@ -6,26 +6,22 @@ import {TouchableOpacity} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {useTranslation} from "react-i18next";
 import {useNavigation, useRoute} from "@react-navigation/native";
-import FontAwesome5Icons from "react-native-vector-icons/FontAwesome5";
+import { downloadArtist} from "../../services/Downloader";
 
 export default function ArtistSheet( props ) {
     const [t] = useTranslation();
     const navigation = useNavigation();
-    const route = useRoute();
 
     const onPress = (type, data) => {
         switch (type) {
-            // case "album":
-            //     navigation.navigate('Album', {
-            //         albumId: data.album_id
-            //     });
-            //     break;
             case "addToPlaylist":
                 navigation.navigate('AddToPlaylist', {
                     type: 'artist',
                     data: data
                 });
                 break;
+            case "download":
+                downloadArtist(data.id);
             default:
                 break;
         }
@@ -39,13 +35,13 @@ export default function ArtistSheet( props ) {
                     <BottomSheetView
                         style={Common.sheet.view}
                     >
-                        {/*<TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('album', props.data)}>*/}
-                        {/*    <Text style={{width: 40, alignItems: 'center'}}><FontAwesome5Icons size={28} name="compact-disc"/></Text>*/}
-                        {/*    <Text>{t('bottomsheet.gotoAlbum')}</Text>*/}
-                        {/*</TouchableOpacity>*/}
                         <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('addToPlaylist', props.data)}>
                             <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="music-note-plus"/></Text>
                             <Text>{t('bottomsheet.artistToPlaylist')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('download', props.data)}>
+                            <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="download-circle-outline"/></Text>
+                            <Text>{t('bottomsheet.downloadArtist')}</Text>
                         </TouchableOpacity>
                     </BottomSheetView>
                 )}}
