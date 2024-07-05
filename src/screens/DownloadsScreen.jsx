@@ -15,6 +15,7 @@ export default function() {
     const [downloadList, setDownloadList] = useState([]);
     const [selected, setSelected] = useState([]);
     const [selectMode, setSelectMode] = useState(false);
+    const [selectToggle, setToggle] = useState(true);
 
     useEffect(() => {
 
@@ -86,13 +87,34 @@ export default function() {
         setDownloadList([...downloadList]);
     }
 
+    const selectAll = () => {
+        let allSelected = [];
+        downloadList.map((item) => {
+            if(selectToggle) {
+                item.selected = true;
+                allSelected.push(item.id);
+            }
+            else {
+                item.selected = false;
+            }
+        });
+
+        if(!selectToggle) {
+            setSelected([]);
+            setToggle(true);
+        } else {
+            setSelected([...allSelected]);
+            setToggle(false);
+        }
+    }
+
     if (isLoading) {
         return <Loader />;
     }
 
     return (
         <SafeAreaView>
-            {selectMode === true && <SelectHeader count={selected.length} resetSelectMode={resetSelectMode} deleteHandler={deleteHandler}/>}
+            {selectMode === true && <SelectHeader count={selected.length} resetSelectMode={resetSelectMode} deleteHandler={deleteHandler} selectAll={selectAll}/>}
             <FlatList
                 data={downloadList}
                 renderItem={ ({item}) =>

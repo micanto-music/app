@@ -23,6 +23,7 @@ import {
     registerAndroidAutoModule,
     requestDrawOverAppsPermission,
 } from "../AndroidAuto/AndroidAuto";
+import {checkLostDownloads} from "../services/Downloader";
 
 export default function() {
     const [refreshing, setRefreshing] = useState(false);
@@ -62,7 +63,10 @@ export default function() {
     useEffect(() => {
         let unmounted = false;
         (async () => {
+            checkLostDownloads();
+
             await setupPlayer();
+
             if (Platform.OS === 'android') {
                 registerAndroidAutoModule();
                 await requestDrawOverAppsPermission();

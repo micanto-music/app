@@ -3,7 +3,8 @@
   "general": {
     "tracks": "Lieder",
     "artist": "Künstler/in",
-    "save": "Speichern"
+    "save": "Speichern",
+    "selectAll": "Alle auswählen"
   },
   "screens": {
     "home": {

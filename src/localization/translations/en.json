@@ -3,7 +3,8 @@
   "general": {
     "tracks": "Tracks",
     "artist": "Artist",
-    "save": "Save"
+    "save": "Save",
+    "selectAll": "Select all"
   },
   "screens": {
     "home": {

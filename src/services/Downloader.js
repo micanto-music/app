@@ -30,6 +30,21 @@ export const getDownloadedFilePath = async (id) => {
     return `${folderPath}/${id}${ext}`
 }
 
+export const checkLostDownloads = async() => {
+    let lostTasks = await RNBackgroundDownloader.checkForExistingDownloads();
+    for (let task of lostTasks) {
+        task.progress((percent) => {
+            console.log(`Downloaded: ${percent * 100}%`);
+        }).done(() => {
+            console.log('Download is done!');
+        }).error((error) => {
+            console.log('Download canceled due to error: ', error);
+        });
+
+        task.resume();
+    }
+}
+
 export const deleteFiles = async (files) => {
     files.map((file) => {
         RNFS.unlink(file.path);
@@ -45,7 +60,6 @@ export const downloadPlaylist = async (id) => {
 }
 
 export const downloadAlbum = async (id) => {
-    console.log(id);
     MicantoApi.downloadAlbum(id).then((res) => {
         res.map((item) => {
             downloadTrack({id: item})
@@ -130,17 +144,8 @@ export const downloadTrack = async (
                     id: track.id,
                     path: destination
                 });
+                downloader.completeHandler('track'+track.id);
                 console.log('Finished')
-                // finishedDownloadQueue.enqueue(() =>
-                //     finishDownload({
-                //         customLocation,
-                //         ext,
-                //         episode,
-                //         origDestination,
-                //         podcast,
-                //         progressLimiter
-                //     })
-                // )
             })
             .error((error) => {
                 console.log('error' + error.errorCode);
