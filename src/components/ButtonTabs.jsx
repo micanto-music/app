@@ -144,7 +144,7 @@ export default function ButtonTabs() {
                         tabBarIcon: ({ color }) => (
                             <Image
                                 source={user?.image ? { uri: user.image } : {uri: defaultUri}}
-                                style={{width:26, height: 26}}/>
+                                style={{width:26, height: 26, borderRadius: 13,}}/>
                         ),
                     }}
                     component={UserStack} />

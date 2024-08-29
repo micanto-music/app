@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import TrackPlayer, {useActiveTrack, useIsPlaying, useProgress} from "react-native-track-player";
 import {COLORS} from "../styles/styles";
 import defaultImage from "../assets/img/logo.png";
+import {IconShare} from "../utils/icons";
 
 const AudioPlayer = () => {
     const { playing, bufferingDuringPlay } = useIsPlaying();
@@ -20,6 +21,13 @@ const AudioPlayer = () => {
         } else {
             await TrackPlayer.play();
         }
+    }
+
+    const onLibraryAddPressHandler = () => {
+        navigation.navigate('AddToPlaylist', {
+            type: 'tracks',
+            data: track
+        });
     }
 
     const onAudioPlayerHandler = () => {
@@ -70,6 +78,7 @@ const AudioPlayer = () => {
                     width: '100%',
                 }}
             >
+
                 <Pressable
                     style={{
                         flexDirection: 'row',
@@ -90,22 +99,31 @@ const AudioPlayer = () => {
                         <Text style={{fontWeight: 'bold'}}>
                             {trimText(track?.title, 25)}
                         </Text>
-                        <Text>
+                        <Text style={{color: '#9ca3af'}}>
                             {trimText(track?.artist, 25)}
                         </Text>
                     </View>
                 </Pressable>
-                <View style={{ marginLeft: 'auto', paddingRight: 10 }}>
+                <View style={{ paddingRight: 15 }}>
                     {bufferingDuringPlay ? (
                         <ActivityIndicator color={COLORS.primaryColor} />
                     ) : (
+                        <View style={{flexDirection: 'row'}}>
+                        <Pressable style={{marginRight: 15 }} onPress={onLibraryAddPressHandler}>
+                            <IconShare
+                                width={26}
+                                height={26}
+                                color="#898989"
+                            />
+                        </Pressable>
                         <Pressable onPress={onPlayPauseHandler}>
                             <Ionicons
                                 name={playing ? "pause" : "play"}
-                                size={28}
-                                color="#FFFFFF"
+                                size={26}
+                                color="#898989"
                             />
                         </Pressable>
+                        </View>
                     )}
                 </View>
                <View style={{
