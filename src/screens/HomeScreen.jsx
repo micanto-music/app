@@ -23,6 +23,7 @@ import {
     registerAndroidAutoModule,
     requestDrawOverAppsPermission,
 } from "../AndroidAuto/AndroidAuto";
+import usePlaylistStore from "../stores/PlaylistStore";
 
 export default function() {
     const [refreshing, setRefreshing] = useState(false);
@@ -32,7 +33,8 @@ export default function() {
     const [latestTracks, setLatestTracks] = useState([])
     const [latestAlbums, setLatestAlbums] = useState([])
     const [isPlayerReady, setIsPlayerReady] = useState(false);
-    const [ setFromSession, playlists ] = useTrackPlayer(useShallow((state) => [state.setFromSession, state.playlists]));
+    const [ setFromSession ] = useTrackPlayer(useShallow((state) => [state.setFromSession]));
+    const [ playlists, setPlaylists ] = usePlaylistStore(useShallow((state) => [state.playlists, state.setPlaylists]));
     const [t] = useTranslation();
     const bottomSheetModalRef = useRef(null);
     const bottomSheetNewPlaylistRef = useRef(null);
@@ -71,6 +73,7 @@ export default function() {
 
             const initData = await MicantoApi.getInitialData();
             await setFromSession(initData);
+            await setPlaylists(initData.playlists);
             addPlaylists(initData.playlists);
             setIsPlayerReady(true);
             fetchData();

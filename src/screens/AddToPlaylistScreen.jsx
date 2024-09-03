@@ -8,25 +8,29 @@ import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
 import {MicantoApi} from "../api/MicantoApi";
 import Snackbar from "../components/SnackbarManager";
+import usePlaylistStore from "../stores/PlaylistStore";
 export default function({route}) {
     const { data, type } = route.params;
-    const [ playlists ] = useTrackPlayer(useShallow((state) => [state.playlists]));
+    const [ playlists, updatePlaylist ] = usePlaylistStore((state) => [state.playlists, state.updatePlaylist]);
     const navigation = useNavigation();
     const [t] = useTranslation();
     const [selected, setSelected] = useState([]);
 
     const onSelect = async (playlist) => {
+        let updated;
         switch (type) {
             case 'album':
-                await MicantoApi.addPlaylistItems(playlist.id, 'album', [data.id]);
+                updated = await MicantoApi.addPlaylistItems(playlist.id, 'album', [data.id]);
                 break;
             case 'artist':
-                await MicantoApi.addPlaylistItems(playlist.id, 'artist', [data.id]);
+                updated = await MicantoApi.addPlaylistItems(playlist.id, 'artist', [data.id]);
                 break;
             case 'tracks':
-                await MicantoApi.addPlaylistItems(playlist.id, 'tracks', [data.id]);
+                updated = await MicantoApi.addPlaylistItems(playlist.id, 'tracks', [data.id]);
                 break;
         }
+
+        await updatePlaylist(updated.data);
 
         Snackbar.show(t('snackbar.added'));
     }

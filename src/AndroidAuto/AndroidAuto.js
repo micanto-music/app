@@ -214,7 +214,10 @@ export const handlePlayRemoteMediaId = async (mediaId) => {
         const trackId = mediaId.substring(6);
         await MicantoPlayer.reset();
 
-
+        if(trackId === 'shuffle-all') {
+            if(!Object.hasOwn(currentContext, 'options')) currentContext.options = {};
+            currentContext.options.shuffle = true;
+        }
 
         const {data: queue} = await MicantoApi.getQueue(currentContext);
         const token = await getToken();
@@ -222,13 +225,11 @@ export const handlePlayRemoteMediaId = async (mediaId) => {
         let currentTrackIndex = 0;
         let reorderQueue = currentQueue;
         if(trackId === 'shuffle-all') {
-            reorderQueue = [...currentQueue].sort(() => Math.random() - 0.5);
+            // do nothing
         } else {
             if(trackId) {
                 currentTrackIndex = currentQueue.findIndex(music => music.id == trackId);
                 reorderQueue = reorderArr(currentTrackIndex,currentQueue);
-                console.log(currentTrackIndex);
-
             }
         }
         await MicantoPlayer.setQueue(toTrackPlayerObject(reorderQueue, token));

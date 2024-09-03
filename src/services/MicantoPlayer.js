@@ -53,12 +53,6 @@ export const play = async (track, context) => {
     await MicantoPlayer.reset();
     await playTrack(track, context);
 
-    if(shuffle) {
-        const currentQueue = await MicantoPlayer.getQueue();
-        let newQueue = [...currentQueue].sort(() => Math.random() - 0.5);
-        await setQueueUninterrupted(newQueue);
-    }
-
     await MicantoPlayer.play();
 }
 

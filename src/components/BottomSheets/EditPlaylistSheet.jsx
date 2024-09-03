@@ -7,14 +7,14 @@ import {useTranslation} from "react-i18next";
 import {TouchableOpacity} from "react-native";
 import {MicantoApi} from "../../api/MicantoApi";
 import {useState} from "react";
-import {useTrackPlayer} from "../../stores/trackPlayer";
 import {useShallow} from "zustand/react/shallow";
+import usePlaylistStore from "../../stores/PlaylistStore";
 
 export default function EditPlaylistSheet( props ) {
     const [t] = useTranslation();
     const [name, setName] = useState(null);
     const [id, setId] = useState(null);
-    const [playlists, setPlaylists] = useTrackPlayer(useShallow(state => [state.playlists, state.setPlaylists]));
+    const [playlists, setPlaylists] = usePlaylistStore(useShallow(state => [state.playlists, state.setPlaylists]));
 
     const handleSubmit = () => {
         let formData = {

@@ -34,6 +34,7 @@ export const toTrackPlayerObject = ( tracks, token ) => {
                 date: '2014-05-20T07:00:00+00:00', // RFC 3339
                 artwork: track.cover, // Load artwork from the network
                 duration: track.duration,
+                liked: track.liked,
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

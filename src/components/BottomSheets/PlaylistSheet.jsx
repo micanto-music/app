@@ -6,17 +6,15 @@ import {Alert, TouchableOpacity} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {useTranslation} from "react-i18next";
 import {useNavigation, useRoute} from "@react-navigation/native";
-import FontAwesome5Icons from "react-native-vector-icons/FontAwesome5";
 import {MicantoApi} from "../../api/MicantoApi";
-import {useTrackPlayer} from "../../stores/trackPlayer";
 import {useShallow} from "zustand/react/shallow";
-import {useRef} from "react";
+import usePlaylistStore from "../../stores/PlaylistStore";
 
 export default function PlaylistSheet( props ) {
     const [t] = useTranslation();
     const navigation = useNavigation();
     const route = useRoute();
-    const [playlists, setPlaylists] = useTrackPlayer(useShallow(state => [state.playlists, state.setPlaylists]));
+    const [playlists, setPlaylists] = usePlaylistStore(useShallow(state => [state.playlists, state.setPlaylists]));
 
     const onPress = (type, data) => {
         switch (type) {

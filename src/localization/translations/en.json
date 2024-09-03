@@ -38,7 +38,8 @@
       "artists": "Artists",
       "albums": "Albums",
       "queue": "Queue",
-      "playlists": "Playlists"
+      "playlists": "Playlists",
+      "favorites": "Favorite Tracks"
     },
     "login": {
       "host": "Host",
@@ -68,6 +69,9 @@
     },
     "queue": {
       "navTitle": "Current Queue"
+    },
+    "favorites": {
+      "navTitle": "Favorit Tracks"
     },
     "user": {
       "logout": "Logout"

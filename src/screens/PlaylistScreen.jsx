@@ -1,11 +1,10 @@
-import { FlatList, SafeAreaView} from "react-native";
+import {SafeAreaView} from "react-native";
 import React, { useEffect, useRef, useState} from "react";
 import {MicantoApi} from "../api/MicantoApi";
 import ScrollSpacer from "../components/ScrollSpacer";
 import Loader from "../components/Loader";
 import TrackSheet from "../components/BottomSheets/TrackSheet";
 import DetailHeader from "../components/DetailHeader";
-import {useTrackPlayer} from "../stores/trackPlayer";
 import {useShallow} from "zustand/react/shallow";
 import ListItem from "../components/ListItem";
 import {arrToComma} from "../utils/helper";
@@ -14,10 +13,11 @@ import Animated, {useAnimatedScrollHandler, useSharedValue} from "react-native-r
 import PlaylistSheet from "../components/BottomSheets/PlaylistSheet";
 import EditPlaylistSheet from "../components/BottomSheets/EditPlaylistSheet";
 import {play} from "../services/MicantoPlayer";
+import usePlaylistStore from "../stores/PlaylistStore";
 export default function({ route, navigation }) {
     const { itemId } = route.params;
     const [playlist, setPlaylist] = useState(null);
-    const [playlists] = useTrackPlayer(useShallow(state => [state.playlists]));
+    const [playlists] = usePlaylistStore(useShallow(state => [state.playlists]));
     const [isLoading, setIsLoading] = useState(true);
     const [tracks, setTracks] = useState([]);
     const [page,setPage]=useState(1);

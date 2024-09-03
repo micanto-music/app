@@ -1,6 +1,6 @@
 import {useProgress, useIsPlaying, useActiveTrack} from "react-native-track-player";
 import React, { useRef} from "react";
-import {SafeAreaView, View, Image, StyleSheet, TouchableOpacity} from "react-native";
+import {SafeAreaView, View, Image, StyleSheet, TouchableOpacity, Pressable} from "react-native";
 import {Text} from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -14,6 +14,8 @@ import TrackSheet from "../components/BottomSheets/TrackSheet";
 import { RepeatMode } from 'react-native-track-player';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {MicantoPlayer, shuffleQueue} from "../services/MicantoPlayer";
+import {IconShare} from "../utils/icons";
+import Like from "../components/Like";
 
 const TrackPlayerScreen = ({ navigation }) => {
     const { position } = useProgress();
@@ -72,6 +74,13 @@ const TrackPlayerScreen = ({ navigation }) => {
         bottomSheetModalRef.current.present(track);
     }
 
+    const onLibraryAddPressHandler = () => {
+        navigation.navigate('AddToPlaylist', {
+            type: 'tracks',
+            data: track
+        });
+    }
+
     return (
       <SafeAreaView>
           <View style={{paddingHorizontal: 20, paddingTop: 20, flexDirection: 'row', justifyContent: "space-between",}}>
@@ -101,18 +110,34 @@ const TrackPlayerScreen = ({ navigation }) => {
                   />
                   {/* track info */}
                   <View style={styles.trackInfoContainer}>
-                      <Text
-                          style={{ color: '#ffffff', ...FONTS.h2}}
-                      >
-                          {track.title}
-                      </Text>
-                      <Text
-                          style={{
-                              color: COLORS.lightGray,
-                          }}
-                      >
-                          {track.artist}
-                      </Text>
+                      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <View style={{maxWidth: 250}}>
+                              <Text
+                                  style={{ color: '#ffffff', ...FONTS.h2}}
+                              >
+                                  {track.title}
+                              </Text>
+                              <Text
+                                  style={{
+                                      color: COLORS.lightGray,
+                                  }}
+                              >
+                                  {track.artist}
+                              </Text>
+                          </View>
+                          <View style={{flexDirection: 'row'}}>
+
+                              <Like track={track} />
+
+                              <Pressable onPress={onLibraryAddPressHandler} style={{marginLeft: 10}}>
+                                  <IconShare
+                                      width={26}
+                                      height={26}
+                                      color="#898989"
+                                  />
+                              </Pressable>
+                          </View>
+                      </View>
                   </View>
 
                   {/* progress bar  */}
