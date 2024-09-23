@@ -1,31 +1,44 @@
 import {create} from "zustand";
 
 const useTrackStore = create((set, get) => ({
-    items : [],
-    setItems: (items) => {
-        set({
-            items: items
-        });
-    },
-    addItems: (items) => set((state) => ({ items: [...state.items, ...items]})),
-    updateItems: (response) => {
-        const currentItems = get().items;
-        let newItems = [ ...currentItems];
+    screenItems : [],
+    setScreenItems: (items, type) => {
+        const currentItems = get().screenItems;
 
-        // find updated items in items and update
-        response['tracks'].map((track) => {
-            let index = currentItems.findIndex(music => music.id === track.id);
-            newItems[index] = track;
-        });
+        let newItems = {...currentItems};
+        newItems[type] = items;
 
         set({
-            items: newItems
+            screenItems: newItems
         })
     },
-    trackCount: 0,
-    setTrackCount: (count) => set(() => ({ trackCount: count })),
-    trackLength: 0,
-    setTrackLength: (length) => set(() => ({ trackLength: length })),
+    addScreenItems: (items,type) => {
+        const currentScreenItems = get().screenItems;
+        let updated = {...currentScreenItems}
+        let newItems = [...updated[type], items];
+
+        updated[type] = newItems;
+        set({
+            screenItems: updated
+        })
+    },
+    updateItems: (tracks) => {
+        const currentScreenItems = get().screenItems;
+        if(Object.entries(currentScreenItems).length) {
+            let newScreenItems = {...currentScreenItems};
+            for (const [type, screenItems] of Object.entries(currentScreenItems)) {
+                tracks.map((track) => {
+                    let index = screenItems.findIndex(music => music.id === track.id);
+                    if(index > -1) {
+                        newScreenItems[type][index] = track;
+                    }
+                });
+            }
+            set({
+                screenItems: newScreenItems
+            })
+        }
+    }
 }));
 
 export default useTrackStore;

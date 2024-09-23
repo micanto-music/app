@@ -5,7 +5,7 @@ import {
     BottomSheetBackdrop
 } from '@gorhom/bottom-sheet';
 import {Text} from "react-native-paper";
-import {cloneElement, useCallback, useMemo, useRef} from "react";
+import React, {cloneElement, useCallback, useMemo, useRef, useState} from "react";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {COLORS, Common} from "../../styles/styles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -15,6 +15,7 @@ import {useTranslation} from "react-i18next";
 import {MicantoApi} from "../../api/MicantoApi";
 import Snackbar from "../SnackbarManager";
 import BaseSheet from "./BaseSheet";
+import Like from "../Like";
 
 export default function TrackSheet( props ) {
 
@@ -24,6 +25,7 @@ export default function TrackSheet( props ) {
     const {onPlaylist, itemId} = props;
 
     const onPress = (type, data) => {
+        let closeOnPress = true;
         switch (type) {
             case "album":
                 let albumId = data?.albumId ? data?.albumId : data.album_id
@@ -43,6 +45,10 @@ export default function TrackSheet( props ) {
                     data: data
                 });
                 break;
+            case "switchLike":
+                MicantoApi.like(data?.id);
+                closeOnPress = false;
+                break;
             case "removeFromPlaylist":
                 MicantoApi.removePlaylistItems(itemId, 'tracks', [data.id]);
                 Snackbar.show(t('snackbar.removed'));
@@ -51,12 +57,14 @@ export default function TrackSheet( props ) {
             default:
                 break;
         }
-        props.bottomSheetModalRef.current.close();
+        if(closeOnPress) {
+            props.bottomSheetModalRef.current.close();
+        }
     }
 
     return(
         <BaseSheet props={{...props, name: 'trackSheet'}}>
-            {props => {
+            {(props,liked) => {
                 return(
                     <BottomSheetView
                         style={Common.sheet.view}
@@ -73,6 +81,19 @@ export default function TrackSheet( props ) {
                             <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="music-note-plus"/></Text>
                             <Text>{t('bottomsheet.toPlaylist')}</Text>
                         </TouchableOpacity>
+
+                        <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('switchLike', props.data)}>
+                            <Text style={{width: 40, alignItems: 'center'}}>
+                            <MaterialCommunityIcons
+                                name={liked ? "heart" : "heart-outline" }
+                                color={liked ? COLORS.primaryColor : "#FFF" }
+                                size={28}
+                            /></Text>
+
+                            <Text>{t(liked ? "bottomsheet.unlike" : "bottomsheet.like")}</Text>
+
+                        </TouchableOpacity>
+
                         {onPlaylist &&
                             <TouchableOpacity style={{...Common.listItem,paddingLeft: 0}} onPress={() => onPress('removeFromPlaylist', props.data)}>
                                 <Text style={{width: 40, alignItems: 'center'}}><MaterialCommunityIcons size={28} name="music-note-off"/></Text>

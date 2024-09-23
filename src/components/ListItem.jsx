@@ -2,12 +2,34 @@ import {Image, TouchableOpacity, View} from "react-native";
 import {Text} from "react-native-paper";
 import {trimText} from "../utils/helper";
 import EntypoIcons from "react-native-vector-icons/Entypo";
-import React from "react";
-import {Common} from "../styles/styles";
+import React, {useRef} from "react";
+import {COLORS, Common} from "../styles/styles";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {State, TapGestureHandler} from "react-native-gesture-handler";
+import {MicantoApi} from "../api/MicantoApi";
+import useTrackStore from "../stores/TrackStore";
 
 export default function ListItem({title, type, clickHandler, item, subtitle = '', cover = null, contextMenuHandler = null}) {
+
+    const doubleTapRef = useRef();
+    const updateItems = useTrackStore((state) => state.updateItems);
+    const handleDoubleTap = (e) => {
+        if(e.nativeEvent.state === State.ACTIVE)
+        {
+            item.liked = !item.liked;
+            MicantoApi.like(item?.id);
+            updateItems([item]);
+        }
+    }
+
     return (
-        <TouchableOpacity activeOpacity={0.7} onPress={() => clickHandler(item) }>
+        <TapGestureHandler
+            onHandlerStateChange={(e) => {if(e.nativeEvent.state === State.ACTIVE) {clickHandler(item, e) }}}
+            waitFor={doubleTapRef}>
+            <TapGestureHandler
+                onHandlerStateChange={handleDoubleTap}
+                numberOfTaps={2}
+                ref={doubleTapRef}>
             <View
                 style={{
                     flexDirection: "row",
@@ -20,10 +42,21 @@ export default function ListItem({title, type, clickHandler, item, subtitle = ''
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <Image
-                        style={{ height: 50, width: 50, borderRadius: 10, marginRight: 10 }}
-                        source={cover ? { uri: cover } : require('../assets/img/logo.png')}
-                    />
+                    <View>
+                        <Image
+                            style={{ height: 50, width: 50, borderRadius: 10, marginRight: 10 }}
+                            source={cover ? { uri: cover } : require('../assets/img/logo.png')}
+                        />
+                        {item.liked &&
+                            <View style={{position: "absolute", left: -5, bottom: -8}}>
+                                <MaterialCommunityIcons
+                                    name="heart"
+                                    color={COLORS.primaryColor}
+                                    size={20}
+                                />
+                            </View>
+                        }
+                    </View>
                     <View>
                         <Text
                             style={{fontWeight: 'bold'}}
@@ -49,6 +82,7 @@ export default function ListItem({title, type, clickHandler, item, subtitle = ''
                     </View>
                 }
             </View>
-        </TouchableOpacity>
+            </TapGestureHandler>
+        </TapGestureHandler>
     );
 }

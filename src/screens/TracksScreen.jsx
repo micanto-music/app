@@ -7,9 +7,10 @@ import ListItem from "../components/ListItem";
 import {arrToComma} from "../utils/helper";
 import TrackSheet from "../components/BottomSheets/TrackSheet";
 import {play} from "../services/MicantoPlayer";
+import useTrackStore from "../stores/TrackStore";
 export default function() {
     const [isLoading, setIsLoading] = useState(true);
-    const [tracks, setTracks] = useState([]);
+    const [screenItems, setScreenItems, addScreenItems] = useTrackStore(state => [state.screenItems, state.setScreenItems, state.addScreenItems]);
     const [page,setPage]=useState(1);
     const [hasNext, setHasNext] = useState(true);
     const [isFirstPageReceived, setIsFirstPageReceived] = useState(false);
@@ -17,7 +18,8 @@ export default function() {
 
     useEffect(() => {
         MicantoApi.getTracks(1).then((res) => {
-            setTracks(res.data);
+            // setTracks(res.data);
+            setScreenItems(res.data, 'trackScreen');
             setIsLoading(false);
             !isFirstPageReceived && setIsFirstPageReceived(true);
         })
@@ -38,7 +40,7 @@ export default function() {
                 setHasNext(false);
             }
             setIsLoading(false);
-            setTracks((prevItems) => [...prevItems, ...tracks.data]);
+            addScreenItems(...tracks.data, 'trackScreen');
         });
     }
 
@@ -62,14 +64,14 @@ export default function() {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <FlatList
-                data={tracks}
+                data={screenItems.trackScreen}
                 renderItem={({item, index}) =>
                     <ListItem
                         title={item.title}
                         subtitle={arrToComma(item.artists,'name')}
                         cover={item.cover}
                         item={item}
-                        clickHandler={(item) => playHandler(item, index)}
+                        clickHandler={(item) => playHandler(item, index) }
                         contextMenuHandler={handleTrackMenu}
                         context={context}
                     />

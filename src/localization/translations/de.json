@@ -89,7 +89,9 @@
     "playlist": {
       "label": "Name",
       "placeholder": "Name der Playlist"
-    }
+    },
+    "like": "Mag ich!",
+    "unlike": "Mag ich nicht mehr"
   },
   "snackbar": {
     "removed": "Von Playlist entfernt",

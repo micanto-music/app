@@ -24,13 +24,12 @@ import {
     requestDrawOverAppsPermission,
 } from "../AndroidAuto/AndroidAuto";
 import usePlaylistStore from "../stores/PlaylistStore";
+import useTrackStore from "../stores/TrackStore";
 
 export default function() {
     const [refreshing, setRefreshing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const [mostPlayed, setMostPlayed] = useState([])
-    const [recentlyPlayed, setRecentlyPlayed] = useState([])
-    const [latestTracks, setLatestTracks] = useState([])
+    const [screenItems, setScreenItems] = useTrackStore(state => [state.screenItems, state.setScreenItems]);
     const [latestAlbums, setLatestAlbums] = useState([])
     const [isPlayerReady, setIsPlayerReady] = useState(false);
     const [ setFromSession ] = useTrackPlayer(useShallow((state) => [state.setFromSession]));
@@ -54,9 +53,9 @@ export default function() {
 
     const fetchData = async () => {
         const {data: response} = await axios.get("/overview");
-        setMostPlayed(response.most_played);
-        setRecentlyPlayed(response.last_played);
-        setLatestTracks(response.latest_tracks);
+        setScreenItems(response.most_played, 'mostPlayed');
+        setScreenItems(response.last_played, 'lastPlayed');
+        setScreenItems(response.latest_tracks, 'latestTracks');
         setLatestAlbums(response.latest_albums);
         setIsLoading(false);
     }
@@ -85,10 +84,10 @@ export default function() {
 
 
     useEffect(() => {
-        if(isPlayerReady) {
-            addRecentlyPlayed(recentlyPlayed);
+        if(isPlayerReady && screenItems?.lastPlayed) {
+            addRecentlyPlayed(screenItems?.lastPlayed);
         }
-    }, [isPlayerReady,recentlyPlayed]);
+    }, [isPlayerReady]);
 
 
     if(!isPlayerReady) {
@@ -126,14 +125,14 @@ export default function() {
                 </View>
                 <View style={{ flex: 1 }}>
                     <Text style={{...Common.headline, marginLeft: 10, paddingTop: 10}}>{t('screens.home.lastPlayed.headline')}</Text>
-                    {recentlyPlayed?.map((track, i) => (
+                    {screenItems?.lastPlayed?.map((track, i) => (
                         <ListItem
                             key={i}
                             title={track.title}
                             subtitle={arrToComma(track.artists,'name')}
                             cover={track.cover}
                             item={track}
-                            clickHandler={(item) => play(item, {'type': 'lastPlayed'})}
+                            clickHandler={(item, e) => play(item, {'type': 'lastPlayed'}) }
                             contextMenuHandler={handleTrackMenu}
 
                         />
@@ -141,14 +140,14 @@ export default function() {
                 </View>
                 <View style={{ flex: 1 }}>
                     <Text style={{...Common.headline, marginLeft: 10, paddingTop: 10}}>{t('screens.home.mostPlayed.headline')}</Text>
-                    {mostPlayed?.map((track, i) => (
+                    {screenItems?.mostPlayed?.map((track, i) => (
                         <ListItem
                             key={i}
                             title={track.title}
                             subtitle={arrToComma(track.artists,'name')}
                             cover={track.cover}
                             item={track}
-                            clickHandler={(item) => play(item, {'type': 'mostPlayed'})}
+                            clickHandler={(item, e) => play(item, {'type': 'mostPlayed'}) }
                             contextMenuHandler={handleTrackMenu}
                         />
                     ))}
@@ -166,14 +165,14 @@ export default function() {
 
                 <View style={{ flex: 1 }}>
                     <Text style={{...Common.headline, marginLeft: 10, paddingTop: 10}}>{t('screens.home.latestTracks.headline')}</Text>
-                    {latestTracks?.map((track, i) => (
+                    {screenItems?.latestTracks?.map((track, i) => (
                         <ListItem
                             key={i}
                             title={track.title}
                             subtitle={arrToComma(track.artists,'name')}
                             cover={track.cover}
                             item={track}
-                            clickHandler={(item) => play(item, {'type': 'latestTracks'})}
+                            clickHandler={(item, e) => play(item, {'type': 'latestTracks'}) }
                             contextMenuHandler={handleTrackMenu}
                         />
                     ))}
