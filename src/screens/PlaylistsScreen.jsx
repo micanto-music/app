@@ -21,7 +21,7 @@ export default function() {
                 data={playlists}
                 renderItem={({item}) => <ListItem
                     title={item.name}
-                    type="playlist"
+                    doubleTap={false}
                     cover={item.cover}
                     subtitle={`${item.tracks_count} ${t('general.tracks')}`}
                     item={item}

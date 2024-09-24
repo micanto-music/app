@@ -9,12 +9,12 @@ import {State, TapGestureHandler} from "react-native-gesture-handler";
 import {MicantoApi} from "../api/MicantoApi";
 import useTrackStore from "../stores/TrackStore";
 
-export default function ListItem({title, type, clickHandler, item, subtitle = '', cover = null, contextMenuHandler = null}) {
+export default function ListItem({title, clickHandler, doubleTap = true, item, subtitle = '', cover = null, contextMenuHandler = null}) {
 
     const doubleTapRef = useRef();
     const updateItems = useTrackStore((state) => state.updateItems);
     const handleDoubleTap = (e) => {
-        if(e.nativeEvent.state === State.ACTIVE)
+        if(doubleTap && e.nativeEvent.state === State.ACTIVE)
         {
             item.liked = !item.liked;
             MicantoApi.like(item?.id);
